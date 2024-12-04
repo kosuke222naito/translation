@@ -1,0 +1,1200 @@
+Intro
+0:00
+Alexander Lichter Hey, everybody. Welcome back to a new video on this channel. And today, we’re not in the usual place. No. We are in
+0:05
+Japan, and, let’s talk with Evan You about VoidZero. [Intro Music]
+0:14
+We’re here at, VueFes 2024, at least very close by. And, well,
+0:20
+with me here is the creator of Vue and Vite and the founder of VoidZero Evan You. How are you doing, Evan? Evan You: Good. Yeah.
+0:26
+Alexander Lichter: So, yeah, we’re here to discuss, everything about your new company, the new project. It’s been, quite a few weeks since you dropped the ball announcing
+0:34
+the funding of a company. Evan You: Yep Alexander Lichter: maybe it’d be good for everyone maybe not reading the announcement blog post or the the keynotes, at
+What is VoidZero?
+0:41
+ViteConf. The link is, of course, in the description for everybody out there who should, definitely do that. To summarize
+0:47
+maybe in, like, 2 or 3 sentences what VoidZero is about. Evan You: Sure. So VoidZero is built on top of a few existing
+0:55
+open source projects, namely Vite, Vitest, OXC, and Rolldown.
+1:00
+And we our aim is to unify the vision of these projects and
+1:06
+build a unified coherent toolchain for JavaScript and potentially, you know, associated services around that
+1:14
+toolchain. Yeah. Alexander Lichter: Well, we’ll get to the services definitely later on. So maybe let’s start in the past very much. When do
+When did you have the idea for VoidZero?
+1:21
+you think, like, you had the the first idea, the first vision of what VoidZero is now and will become? Like, when any day from
+1:27
+the big picture, let’s say? Evan You: I would say when the when the moment we realize when
+1:33
+I realize Vite is gaining so much traction that it’s essentially become becoming a shared infrastructure layer
+1:40
+between a lot of these different web frameworks and tools, I think this level of convergence is something that that’s very
+1:49
+rarely seen in the JavaScript ecosystem because, if there is one thing that we can summarize the JavaScript ecosystem is that
+1:57
+it’s so, you know in an active way, it’s fragmented. In a good way, it’s diverse. True. Right? I think it’s a it’s a double
+2:07
+edged sword in many ways. Mostly because JavaScript evolved from a very crude,
+2:13
+simple scripting language to the most used language today. So people are essentially pushing it to its limits, using it to
+2:20
+build things that it just wasn’t designed for in the first place. Right? So, over that period, we need all these tools to support
+2:27
+these expanding use cases. So people come up with these solutions 1 by 1, right, by different people at different
+2:36
+time. You know? So inevitably there are just all these
+2:42
+incompatibilities or inconsistencies or overlapping responsibilities between all these tools. I think the nice
+2:51
+thing about this is we essentially, you know, collectively created all the things we actually need. Right?
+2:58
+So we do have solutions to almost every engineering problem in JavaScript today.
+3:03
+And the downside is we have to essentially, in every project, like, pull in hundreds of dependencies and try to
+3:10
+configure them, make sure they work together, and make sure, like, you know, we actually get what we want. Right? So, I think
+3:19
+at a so in a way, that has been the the case for, for example, the build tool. Right? In Vue CLI, we had a very long time we
+3:27
+had to just, like we basically did the job of putting together all these things for our for Vue users and try to give them a
+3:36
+more streamlined experience at the end. And at one point, I was thinking there must be a simpler way to
+3:44
+do this because I still found Vue CLI was a bit too over engineered, too complicated. Mhmm. Right? So Vite was in kind
+3:51
+of like an attempt to rethink how the tool change could work for Vite in the beginning. But at a later time, halfway through
+4:00
+working on Vite and refactoring it, I realized, okay, like, a lot of these ideas apply to it’s not Vue specific anymore.
+4:09
+Alexander Lichter: Yeah. It works for the frameworks, right? Evan You: Yeah. We can we can use it to to support other frameworks too and, can make things simpler for them too,
+4:16
+right? So, I think that proved to be a really good idea because then a lot of other frameworks started adopting Vite. And,
+4:25
+right, then then it the the trend that I talked about appeared. Like we see, like, more and more frameworks are
+4:31
+adopting Vite and using it as the the default tool chain to build on.
+4:36
+So that’s the moment I realized, like, we’re onto something. Right? Like, this is, like for the first time, you see all
+4:45
+these different frameworks are opting to use the same thing, and the magic appears because now the same Vite plugin can be
+4:52
+used in Remix, in SvelteKit, in Nuxt, which was just not
+4:59
+possible before. Right? So what happens if we bring this common shared infrastructure even deeper down to the whole
+5:07
+JavaScript ecosystem? Right? I think there will be more positive effects. So that is, I think that’s the fundamental reason why I want
+5:15
+to, you know, pursue this idea. And, and part of the reason why
+5:21
+we started the company is because it’s a very ambitious undertaking. Right? It’s true.
+Limits of Vue’s funding model
+5:26
+Alexander Lichter: It means it’s a whole thing for the the whole JavaScript ecosystem. Right? And that’s also, like, we talked a lot about front end, but also all the frameworks going full
+5:32
+stack and even taking over the back end. Like, JavaScript’s everywhere, right? Evan You: So, yeah. So honestly, I, ironically, I don’t like, as
+5:41
+someone who’s successfully made something like Vue sustainable over the years, I also know the limits of the funding model that
+5:49
+we’re using for Vue. Right? It’s probably enough to sustain a few, maybe like 2 to 3 full time developers, plus we sponsor,
+6:01
+some developers on our team to work on it in their part time. They still need a, you know, day job to support their support
+6:08
+their living. So, that’s pretty much the limit of the way Vue operates, and Vue
+6:13
+is already a very successful outlier among all the independent projects. Right? Alexander Lichter: Absolutely.
+6:18
+Evan You: So something at the scope of a unified toolchain for JavaScript, that’s not something we can do just based on
+6:25
+donations or sponsorships. Alexander Lichter: Yeah. Evan You: Right? You need buying from you either need a
+6:32
+foundation with buying from big enterprise willing to pull a lot of resources together to make this happen, which is very
+6:38
+difficult because, it’s hard to align incentives for this between these companies, right? So the other option is we find
+6:45
+ways to get enough money to build a team ourselves, to work on this full time. Alexander Lichter: And that’s what kinda happened with the
+6:51
+$4,600,000 funding you got now, from copies like Accel Yeah.
+6:57
+From, sponsor sponsor. Sorry. From from investors like, Matt Biilmann, for example. Lots of people also you all, named them
+7:05
+in the announcement blog post. Yeah. But maybe also let’s go a little bit back because I think the funding, it was announced earlier this month And it was
+7:14
+secured I think like in 2023. Evan You: Yeah. It was actually closed last year. Yeah.
+7:19
+Alexander Lichter: So, maybe even go further back. When did you found the company that we now know as as VoidZero? Like,
+When did you found VoidZero?
+7:26
+when did you make the step to create that company? Evan You: So the company was registered, I think, August
+7:33
+2023. Mhmm. Funding closed a few months, 1 or 2 months after that. But the first idea I think kind of started when I was in
+7:46
+Singapore at a friend’s company’s kind of gathering when, some some developers who are now part, VoidZero
+7:56
+employees, they were visiting Singapore. Visiting a friend’s company in Singapore, and I was just there to hang out.
+8:04
+And we were chatting about, front end technologies and JavaScript. And so the friend who is also the the founder of
+8:14
+the company was like, so you have Evan here, and then we also have folks who worked on some, like, projects like rspack at
+8:24
+ByteDance. Like they work, on supporting very, like, large
+8:30
+scale front end infrastructure projects, and they’re experienced in that. And we’re talking and we’re talking about
+8:36
+Vite, and how where the future JavaScript tooling is. And, you know, it just felt like, you know, there’s the Vite trend,
+8:45
+there are people who are working on similar things but also interested in the vision that Vite is pointing towards.
+8:52
+So that kind of kick started a conversation, like, maybe this can be a company. Right? Because, one thing about
+8:59
+starting a company is you not only need the vision, but you also need the right people to build it. Definitely. So, so
+9:06
+part of the reason why it it all came together is because I got to talk to a few people who are experts in this field and also
+9:15
+interested in working towards this vision. So, but of course, you know, if we don’t have the proper funding
+9:22
+to allow them to work on that vision full time, this would not happen. Alexander Lichter: That’s true. Evan You: So that’s when I started thinking about, oh, we
+9:28
+need to raise money. Alexander Lichter: Makes sense. So the company is named VoidZero Yeah. Did you come up with the
+The name VoidZero
+9:35
+name yourself? If you don’t, like, how how did it happen? Evan You: Yeah. Funny enough, like, in the beginning, I was
+9:41
+struggling picking a name. So I just, like we just temporarily called it Vite Labs. Alexander Lichter: Oh, okay. Like, Tailwind Labs. NuxtLabs
+9:47
+and so on. Evan You: Yeah. Uh-huh. We called it Vite Labs, but, at a later stage, we discovered there was a crypto company called
+9:54
+Vite. Alexander Lichter: Oh, the crypto one. Yeah. Evan You: The crypto company is literally called Vite Labs. Alexander Lichter: Oh, yeah. Yeah. That’s tricky.
+10:00
+Evan You: So it’s like just a pure name conflict, and they actually have the name Vite Labs registered on GitHub, on
+10:07
+LinkedIn. And we found out too too late, like, the so I decided to find a better name Mhmm. A different name. So VoidZero is a
+10:17
+play on the, it’s a valid JavaScript expression. If you write void 0, it evaluates to undefined.
+10:23
+Yes. Because the void operate void is in fact a keyword and an operator. So it just turns everything after it into
+10:30
+undefined. Alexander Lichter: Which is a funny place, especially also instead of undefined using void 0. It’s smaller.
+10:35
+Evan You: Yeah. It’s also, like, when you use a minifier to compress undefined, it compresses into void 0. Exactly.
+10:42
+Alexander Lichter: Yeah. So, to my to my, opinion there are, like, ViteLabs. It feels like it’s very much sticking around
+10:48
+Vite as, like, the central tool. And while I think that VoidZero is more open Yeah. As you have now, like, you have the whole
+10:54
+OXC, topic you have Rolldown. You have Vitest. Like, you have a lot of projects under the same
+10:59
+umbrella. Yeah. And in that way, it’s like, in a way, of course, Vite is still a central piece, but it’s detached, not that
+11:05
+focused on it. Evan You: Exactly. Yeah. I think part of the reason of picking the new name is also because of that. Because, like, we don’t
+11:11
+want to give the people impression that, you know, the company is essentially, like, completely taking Vite and
+11:20
+trying to commercialize Vite. That’s not the point. Right? We want to keep building open source, keep contributing
+11:26
+to open source. And our monetization is not about turning Vite into a money generating machine. That’s not
+11:32
+the not the play here, right? Alexander Lichter: So and there, just to double down on that, I know you mentioned it a couple of times, but everything that’s
+What is open source will stay open source!
+11:39
+released right now under the open source MIT license will stay open source? Evan You: Of course, yes. Good. So everything that is that we
+11:45
+maintain as open source will remain open source will remain the same license forever because, we don’t ever plan to
+11:53
+monetize based on, say, now we change the license and need to pay money to use Vite. That’s not gonna happen.
+11:58
+Alexander Lichter: Yeah. Perfect. So everybody watching now, you can be a bit more relieved. So VoidZero now, the
+Who is on the VoidZero team?
+12:05
+team page came up, like, a couple days ago, like, a week, I think. So, who who’s on the VoidZero team and maybe also the
+12:12
+extended team, like, advisors, people around the ecosystem, maybe just a brief overview of the people working there.
+12:17
+Evan You: Sure. So, we have internally, so we have, a sub team that’s focused on oxc, of course. So there’s Boshen, who’s
+12:26
+project lead, Overlook Motel, we we call him Jim. He’s a bit more
+12:33
+likes like to stay undercover, but, Jim is kind of like the optimization wizard, very deep knowledge about Rust
+12:40
+optimizations, and, very knowledgeable. And then, Deng Qing, mostly working on the transformers.
+12:49
+He’s been a very impressive contributor to the transform pipelines and also doing a lot of very like pushing out the
+12:55
+transform features really really fast. So that’s the OXC side of things. Then extended, we also have OXC contributors that we
+13:01
+sponsor. So, Don Isaac contributes to the linker a lot.
+13:07
+And then, we have a few more contributors that have either contributed in the past or have been making active
+13:14
+contributions. We also sponsor them. And then on the roll down side, it’s mostly from, ex ByteDance folks who worked on RS Pack. So they
+13:25
+have deep expertise in Rust bundler space. So that’s one of the reasons we are confident we can actually build a bundler
+13:33
+that is able to fulfill the needs of Vite, right? It’s not easy, and it requires prior experience to that.
+13:39
+And, Boshen also kinda worked to support some of the RS pack things when when he was working at ByteDance. Right? So there’s
+13:48
+Yunfei and, Xiangjun. Xiangjun’s ideas like I wanna be that guy on your hook. And then Li Kui.
+13:55
+Li Kui actually was a Vue contributor and Vite contributor That’s interesting. In the past. Yeah. He was a very early Vite
+14:02
+contributor. Was, quite, quite helpful during the Vite 2.0
+14:07
+interface. Unfortunately, he then went to work for ByteDance and kind of, like, stopped doing open source, but now we got him back.
+14:15
+Alexander Lichter: Sweet. That’s a that’s a nice returning story. Yeah. Evan You: And, and then on the on the Vite side, so we also
+14:23
+hired a few core contributors of Vite. So Sapphi, Hiroshi, and
+14:29
+then Vladimir, who is now the lead maintainer of Vitest, of course. Right? So I think that should cover everyone.
+14:37
+Alexander Lichter: Nice. And on the adviser side, like, people that are not full time working there? Evan You: Right. So, we have an adviser who is, Broooooklyn,
+14:44
+who’s the author of NAPI.rs - an API, which is the way that, allows Rust and Node.js to talk to each other
+14:53
+very nicely. So our most of our work relies on that. Alexander Lichter: Makes sense to have him as an advisor on
+14:59
+board. Yes. Yeah. Evan You: He helps a lot on the some of the technical stuff under the hood. Yeah.
+15:04
+Alexander Lichter: Okay. Sweet. So we already talked about the business side and you mentioned why, like, funding and the
+VC Funding for VoidZero
+15:10
+business was necessary given your experience with Vite and Vue and that, let’s say the open source sponsorship model
+15:17
+doesn’t, like, doesn’t allow hiring just a bunch of people working full time on the vision. So then, of course, the question
+15:24
+comes with the funding. And, of course, lots of people, reactions, like, oh, VC funding, open source.
+15:30
+We all know some horror stories there. Evan You: Yeah. Alexander Lichter: And I think there are also some misconceptions out there, especially in preparation for
+15:35
+interview. Yeah. I heard some interesting takes there. So maybe it would be just interesting to hear why you
+15:41
+decided on taking VC money, what other options were there maybe, and especially, how you found the right investors.
+15:48
+Evan You: Yeah. So, first of all, I think a lot of people are kinda allergic to hearing the term VC and Open Source combined
+15:55
+together. But I think despite being an independent dev myself for almost like 10 years, I never look at this as a black
+16:03
+and white problem. Right? There are successful stories of open source taking VC money, growing to successful companies, while
+16:11
+still staying true to open source. Right? I don’t think that’s, you know, just impossible. It can be
+16:17
+hard to do, right? But a lot of it depends on the execution, the
+16:23
+team, the project. It’s just very case dependent, right? It’s not black and white. The second is, like saying for the
+16:32
+for the idea of taking VC money, the terms and the arrangement and the power structure can vary just wildly different depending
+16:40
+on the companies, Right? Most of the horror stories we we hear are actually companies or projects being taken over
+16:47
+completely by private equity firms or right? So, when you give out the control entirely, then the the firm will probably
+16:56
+try to squeeze out as much of a profit as possible. But for example, for our seed stage, right, all investors combined
+17:04
+control less than 18% of the company. So Alexander Lichter: And you you have the rest?
+17:09
+Evan You: Yeah. Okay. Right. And then we have stock options, of course, of the team members. Yes.
+17:15
+And then the investors don’t have any board seats. So we retain absolute control of the company. We retain we control
+17:23
+the vision for all our open source efforts. Right? So in other words, it is up to me to decide whether we should,
+17:31
+whether these open source projects will remain stay true to open source. And I think in a lot of ways, it comes down to whether do you
+17:38
+trust me to do the right thing for these projects. Alexander Lichter: I’ve seen it also a lot. People, like, are
+17:44
+skeptical, especially with this VC part as I mentioned, but then they’re also, like, oh, yeah. Evan You, the guy behind Vue
+17:49
+Vite, he has a track record of, like, successful open source projects, and he won’t do anything harming open source.
+17:55
+Evan You: Yeah. Alexander Lichter: But I think, like, mentioning the whole topic about shares and that you don’t give up control is a very
+18:00
+important part there. Just so once again, people are aware, like, hey, you are still in control, and even though, of
+18:07
+course, the investors have some shares in that they want something else in ROI and becomes monetization also in a
+18:12
+bit, it’s it’s still like your vision and in the end you also chose partners like like Accel
+18:18
+Evan You: Exactly. Alexander Lichter: For example that align with that. Evan You: Totally. So we talk to obviously, during fundraising,
+Picking the right investors
+18:24
+we will talk to multiple different VCs, and we kind of instantly get a sense of whether they understand what we’re
+18:30
+trying to do, and whether they are on board with that vision, right? Some will immediately jump to sort of more direct
+18:38
+questions like, how do you make money? How big is the market? When do you expect to be able to start making money?
+18:45
+And to be honest, like, forward, we do have a plan, right? But our plan is intentionally kind of for the long run. Like a lot
+18:52
+of it relies on us building the right toolchain first. And we only work with partners who believe in that vision and
+19:00
+believe the pace and the strategy that we have planned out will work. If they we will only take their money if they’re
+19:06
+okay with that. Yeah. Right? So that’s important in picking, picking investors.
+19:12
+And, I guess for some companies, maybe they don’t have the room
+19:18
+or leisure to just, like, pick the investors they like the best. But for us, luckily, you know, I think we were able to
+19:25
+just go with the investors that we see that, okay, like, they buy into the vision, they understand that, they’re willing
+19:30
+to give us the freedom and flexibility to do things our way. Alexander Lichter: Yeah. And also, like, not jumping straight to, like, okay, when
+19:37
+can we get ROI? When when is the money there? Yeah. So that also means to tell, like, for the long run, which means not couple
+19:42
+months, but, like, multiple years. Yeah. So as I said, you’re focusing on technical part first, getting that right.
+The solved Zero to One Problem
+19:48
+Evan You: Yeah. Alexander Lichter: And as you also mentioned that you had maybe the the luxury to talk with a lot of VCs that are
+19:54
+interested, in the project, also the vision. That also comes from the the 0 to 1 problem that you don’t really have to compare to
+20:01
+former projects that also try to be a unified toolchain in a way. Evan You: Mhmm. Yeah. I think, obviously, our, you know, the raise is based a
+20:09
+lot on the traction of the open source project that we’ve already built. So it’s not like we’re pitching the idea out of
+20:16
+the blue and say, we’re gonna build this amazing build tool called Vite, and it’s going to be the most popular thing in 2
+20:22
+years from now. Right? That’s just, like, kind of giving promise out of thin air. Like when we raise money, Vite is already on an up growing
+20:29
+trajectory, and the trend shows that. And, you know, the year since we’ve raised, Vite continues to grow, and the
+20:36
+growth just doubled in the past year. Given, like, a year ago it was already at 7,000,000 weekly downloads and now it’s more than
+20:44
+double of that. Alexander Lichter: Which is, like, an insane growth as well. Yeah. Even though, of course, like, download metrics always be
+20:49
+tricky because there’s a lot of legacy, but it still shows a trend. Yeah. And and also that you mentioned before, like,
+20:55
+every modern framework except Next. Js nowadays is using Vite in Yeah. In their core. Yeah. It’s
+21:01
+also showing where the ecosystem moves because Mhmm. Once again before, like, oh, yeah. Sure. Rollup there, webpack there, and also, like, some some
+21:09
+systems around it, and now the unification is, in a way, already happening. It just needs to go the next step as you
+NPM download as metric
+21:15
+mentioned before. Evan You: Yeah. Just a point about, I see some people, like, complaining NPM downloads is useless metrics. Like, the
+21:22
+absolute number itself doesn’t really mean much, but, like, you can argue that there are, like, CI downloads, repeated
+21:29
+downloads, improper caching, but, like, it’s the same for every package on npm. Right? So if you compare the same type of
+21:36
+packages across the same category, the relative numbers and trends still makes a lot of sense.
+21:42
+Alexander Lichter: Yeah, that’s true. Absolutely. It’s it’s more like all the legacy expc… like the legacy, applications out
+21:48
+there that might have been built with webpack and you don’t do things in terms of, like, the market share. I think that’s
+21:54
+that’s more of what people say. Oh, yeah. That’s that’s a bit different, but I also don’t think they’re useless. It’s just it’s it also gives doesn’t give the whole
+22:00
+picture. Yeah. But at least it’s comparable. I think that’s a good point Evan You: there. It’s mostly used to determine, to discover
+22:07
+the trend of whether you are, you know, on an upward trajectory. Alexander Lichter: Yeah, that makes sense. In terms of VC,
+Other company models for VoidZero
+22:13
+have you thought about other models, besides what you did with, for example, Vue to make VoidZero happen?
+22:20
+Evan You: Yeah. So my first conclusion is that the model that Vue uses is, is only scalable up to a certain
+22:27
+threshold and is just not enough to support the amount of work that we we intend to do with VoidZero. Right? And in a way,
+22:36
+it’s also because I personally know how difficult it is to scale this model. Like, Vue grew grew over the past 10 years to
+22:47
+the state it is now, I would say it’s pretty sustainable. Like, personally, I’m I would say I’m pretty financially well
+22:54
+off just because of all the work that I did with Vue. But that’s just for me. Yeah. Like, I also sponsor a number of developers
+23:03
+out of my own pocket, but that’s about it. I cannot afford to, say, hire 10 people to work on things just out of the
+23:11
+sponsorship money. And in a way, also, a toolchain is harder to monetize in the
+23:18
+same way that Vue does. Because Vue as a framework touches interacts with developers more directly. Like this is one thing
+23:25
+I’ve mentioned when I sort of try to, people ask me for advice on independent open source projects. Like the abstraction
+23:32
+where your project sits at heavily affects your monetization strategy. So Vue, because it interacts with users
+23:40
+so directly and it has great exposure, and makes sponsorship based, channels also, for example, endorse content or like
+23:49
+just putting up a banner in a way. Like all these things is about exposure. Yeah. And because it
+23:56
+our documentation interacts with the users on a daily basis. And with the That’s why some Yeah. That’s where the conversion
+24:04
+happens. But for a dev tool, it’s the conversion will be much, much lower because you sit at a lower layer. For example, if someone
+24:13
+uses Vue with Vite, they set up Vite maybe once, and the rest of
+24:18
+the time they mostly look at Vue documentation instead of Vue documentation. Right? So the conversion rate will also be
+24:24
+different. So it would it will be even more difficult to make a toolchain sustainable based on the same model that Vue uses
+24:30
+because they’re just different things. Yeah. Right? It’s kinda similar reasons why Babel has kinda
+24:35
+always struggled with funding despite being wildly used. You know, it’s it’s just like it’s crazy how Babel is literally at
+24:41
+one point the universal toolchain for JavaScript. Somehow it struggled with funding. Alexander Lichter: I mean, same with, like, Core. Js for
+24:48
+example, where, like, Polyfuzz is used in so many big projects, but lots of people are not aware. And I think especially,
+24:54
+like, end users, developers Yeah. Using, let’s say, meta framework, they might know much about Vite. Yeah.
+24:59
+So they’re, oh, okay. It’s using Vite. That’s that’s that. Yeah. Evan You: In a lot of ways, they’re abstracted away in these
+25:04
+end frameworks that just configures things for the users. Yeah. And the user may not even know they’re using Babel in a
+25:09
+way. Alexander Lichter: Exactly. I mean, I I also saw saw it for example with jiti from UnJS. Like, oh, it’s used in ESLint now, but nobody knows these all these smaller packages because
+25:17
+once again once again, they have so many dependencies as well. Yeah. And I I definitely see where then it’s very difficult to,
+25:23
+like, get money through sponsorships. And I also remember so Nux has been part of the GitHub accelerator in the
+25:29
+first cohort. Mhmm. And, I mean, you also gave a a presentation there and lots of people, and one of the takeaways I had there
+25:36
+was, like, lots of people built, a course around it or, had any incentive for, like, okay, sponsor me so you get early
+25:42
+access or here’s a freemium version and so on and so on. And a lot of people tried to build a business around it because
+25:48
+otherwise they couldn’t really finance it. Yeah. While you were in a way the odd one out, so to say, that
+25:54
+it worked with with sponsorships. But I guess, as you said, that’s because you have, like, a end user facing
+25:59
+framework in the end that’s Very popular. Evan You: Yeah. Alexander Lichter: And of course not everybody can say, like, okay, I I build I build another framework and do the same.
+26:07
+Evan You: Yeah. Right? In a way, Vue was able to do that because, we reached popularity first, then we started become
+26:16
+sustainable, right? In a way for it’s also kind of a chicken and
+26:21
+egg problem. For some projects, if you don’t you’re not sustainable in the first place, you don’t you maybe cannot even
+26:28
+persist until the day you get popular. Right? And I think yeah, so it’s it’s challenging. Right? So at
+26:36
+one point I was also thinking, look, like, JS infrastructure, maybe it’s, like, better suited as a foundation where, you know,
+26:44
+you can get a bunch of companies, pull money to do it. But usually this only happens when you have, like, really big
+26:51
+companies like Google or Mozilla or Microsoft to pull money together. But, you know, the incentives behind foundations is also very
+26:57
+complicated. It can get pulling the right strings to get them to work together to do this kind of thing usually depends on you are
+27:03
+already the industry standard, and you are facing
+27:13
+sustainability problems. Alexander Lichter: It’s more like as a solution out of the sustainable problems that are already there. Like, oh, yeah,
+27:19
+let’s donate this to Foundation XYZ because you’ll create a new foundation and I see. Yeah. Evan You: So I don’t really see us in the position to say, hey,
+27:25
+we plan to build this. We’re starting a foundation. You guys should pull money to do this. I just feel like it’s, compared to
+27:34
+convincing VCs that there will be a monetization model on top
+27:39
+of that, it’s actually a more viable way compared to doing a foundation at this stage. Alexander Lichter: But would you think that could be, like, let’s
+27:46
+say, plan zed or, like, c or whatever solution in terms of, let’s say, worst case scenario, monetization doesn’t work out
+27:53
+for whatever reason to switch to a foundation like mobile. Evan You: I think that’s definitely on the table. Like,
+27:59
+even at later stage, we could potentially for example, like,
+28:04
+maybe not the best example, but, like, WordPress kind of separates? Alexander Lichter: Difficult right now. Yeah.
+28:10
+Evan You: But not just WordPress. There are multiple companies who put the open source projects in a foundation,
+28:15
+but then have a for profit business entity Alexander Lichter: Yes. Evan You: Sort of leading and supporting the foundation. That
+28:21
+model is possible. But at at this stage, we’re just focused on trying to get the monetization working first.
+28:27
+Alexander Lichter: Of course. That totally makes sense. And you already mentioned there were there were quite some projects who got popular, like, after being or, like, popular and then
+Lessons Learned from other “unified JS toolchain projects”
+28:36
+sustainable. Mhmm. Other projects tried to do the same and failed. Now especially in the unified toolchain
+28:43
+Evan You: Mhmm. Alexander Lichter: Category, let’s say, there are a few that, of course, tried it. Like, VoidZero is not the first attempt. Evan You: Mhmm. Alexander Lichter: Yeah. So, of course, Rome is a Is a very good
+28:51
+example. But also to some degree, at least what Bonn is trying to do, like, the runtime part of it maybe.
+28:57
+Could you outline differences, maybe also learnings from some of the projects that failed or still exist, and what you do
+29:04
+differently? Evan You: Yeah. Sure. So, first off with Rome, I’ll have to be a
+29:11
+bit direct here. I’m not criticizing specific people involved in the project, but I think, it went some detour. 1st,
+29:19
+Roam was started as a JavaScript based implementation. They essentially gave up halfway and decided to rewrite
+29:27
+everything in Rust. So that was already a lot of wasted time and energy, right? So by the time they they started rewriting
+29:36
+everything in Rust, they are back to ground with 0 adoption, with nothing implemented. So this reimplemented the parser
+29:44
+from the ground up and got finally got to the way of implementing a formatter, right?
+29:49
+So that was the first usable thing that Rome produced. The thing about a formatter is it’s easily adaptable, so it’s good
+29:58
+to kind of validate your thing and get people using it. However, in my opinion, flow matter is something with the
+30:05
+lowest moat in terms of it’s it’s kind of detached from everything else from your build stack. Yeah. It’s like I can
+30:13
+switch your flow matter anytime without incurring much thought. It’s like I switch from Prettier to Biome today. It’s easy. It’s
+30:20
+simple. It doesn’t really involve anything else. Alexander Lichter: Not not high cost as well. Evan You: Yeah. Which means if there is a better formatter
+30:27
+coming up one day, I would have no problem switching Biomout for that formatter. Right? So it’s not really it’s not going to
+30:34
+let’s say you’re building a company and you want people to keep using your stuff. The format really isn’t the best
+30:40
+thing to keep them Alexander Lichter: Yes. Evan You: For that purpose. Right? So so they, they did not
+30:50
+get to build the, the rest of the thing mostly because of operational issues. Honestly, I don’t think it’s they they
+31:00
+didn’t even get to the part where they even started attempting to make money. Right? So the company kind of folded before they got to that part.
+31:07
+Yep. And it’s not because that the idea of a unified toolchain is wrong. I think it’s mostly the execution. Right?
+31:15
+So, it’s unfortunate that the that the company folded, but,
+31:21
+it’s really, like, the same idea carried out by a different group of people can have very different results.
+31:28
+Alexander Lichter: Yeah. I mean, ideas are cheap, right? It’s about execution in the end. Yeah. Evan You: It’s true. There’s no direct correlation between, like, oh, because they did it and failed, like, no one else
+31:35
+can do it. Right? Alexander Lichter: So Especially as a lot of people want that unified toolchain. I mean, people from other programming
+31:41
+languages are laughing at JavaScript, like, oh, you don’t have, like, cargo, like, a Rust, and, like, Yeah. So, I think
+31:46
+that the demand is definitely there for sure. Yeah. But, yeah, it’s a good point that, like, also there the let’s say the
+31:53
+difficult part and also the sustainability part Yeah. Wasn’t fully reached if I’m yes. Evan You: So I think one part is, you know, the company, it
+32:00
+just, like, imploded. The other side of it is, the adoption profile of a formatter is just not a good entry point, in my
+32:09
+opinion. Like, there are I think it also depends on the specific
+32:15
+ecosystem. Right? So if you build a successful formatter and you follow-up with other successful thing, it may also
+32:20
+work out. Right? For example, I think Astral is doing the this for the Python ecosystem. Mhmm. Right? They build ruff, which is wildly
+32:29
+successful, but then they got into uv, which is package management. Like, because the formatter is good for spreading awareness.
+32:37
+Right? Alexander Lichter: But you have to follow-up also very quickly. Yeah. Evan You: You have to follow-up with something that’s more concrete, that solves more, more critical problems Yeah.
+32:46
+Alexander Lichter: In the tool chain. Evan You: Just formatting. Yeah. Yeah. Right? But compare that to VoidZero.
+32:52
+Right? We have Vite. And Vite is already solving a critical problem for a lot of people. Yeah. Right?
+32:59
+So, in a way, we have already crossed that 0 to 1 stage. Like,
+33:05
+if we can enhance Vite with this new toolchain we’re building, we have no problem with getting it into hands of millions of
+33:12
+developers. Alexander Lichter: You could already use it. Yeah. It’s not like we have to gather the users. It’s like, Here’s a new
+33:17
+update. You go for it. Evan You: -Yeah. So we’re we don’t have to worry about like, Hey, here’s a brand new Rust toolchain. Can you try it,
+33:25
+please? Right? In a way, like, we, we don’t have to worry about
+Feedback from framework authors
+33:31
+that. We can focus on just building the best thing possible. Alexander Lichter: And I mean, you also have a lot of people being able to test it as well. Yeah. I get feedback. I think
+33:37
+that’s also another part of, like, not only adoption, but get the whole framework together and say, like, okay. Evan You: Exactly.
+33:43
+Alexander Lichter: This is what we need or doesn’t work or could improve. So, like, also a lot of opinion can sometimes also be
+33:48
+bad, but it’s better having, like, a lot of people testing it and giving feedback. Evan You: Totally. One of the strengths of the Vite ecosystem
+33:54
+is we have this kind of very close collaboration relationships with all the teams that are building on top of it.
+34:01
+I talked to a lot of the stakeholders before I started the company, you know, and make sure everyone is aware that we
+34:08
+plan to do this. Yes. Right? So in the long run, I think, they’re on board with it because in the long run, it benefits their framework too.
+34:15
+Alexander Lichter: Right? So everybody was, like, mostly positive saying, hey, good idea. Evan You: Yeah. Alexander Lichter: So that’s also nice to, like, get not
+34:21
+saying approval, but, like, just, let’s say, it’s just temperature gauge of, like, what people think about it
+34:26
+Evan You: Yeah. Beforehand. And especially because you don’t wanna step on anyone’s toes saying, oh, now framework XYZ
+34:31
+might switch to whatever or build their own things Yeah. Because of that. So that’s, well, definitely a good move, I
+34:37
+would say. In terms of runtime, you said that VoidZero should be runtime agnostic.
+VoidZero and runtime-agnosticism
+34:42
+Yep. Alexander Lichter: So how do you how do you compare it to something that BUN is doing, which, like, also they are, like, all in one toolchain to to some degree.
+34:48
+Evan You: Yeah. So I think the positioning here is, our goal is to build a toolchain that solves your problems in a way that
+34:57
+would benefit you regardless of the framework you’re using or the deployment targets you want to use. Right? So as long as you
+35:03
+are doing JavaScript, there is a way for you to benefit from the things that we build. Whereas I think for Bun and Deno they’re
+35:12
+fundamentally runtimes. So in a way the development experience or the toolchains integrated with the runtime is their way of offering more
+35:22
+features or better development experience in order to get traction to convert users from Node. Js to use these different
+35:29
+runtimes, right? So the the purpose is a is a bit different, Right? Because, if I’m not mistaken, the ultimate
+35:37
+monetization strategy for both Deno and Bun is to make people pay for hosting services to run Deno or Bun.
+35:43
+Alexander Lichter: Yeah. Like Oven, Deploy, and so on. Evan You: Yeah. So their bet kinda hinges upon, that people
+35:50
+switching away from Node.js, their runtime end up being the winner in the ecosystem, and naturally they wouldn’t want
+35:59
+their toolchain to be easily usable without actually using the runtime, which means every all the toolchain used in Bun is
+36:08
+coupled to Bun, right? So let’s say you want to build your own
+36:13
+analyzer for a very customized use case. OXC is a full list of crates that you can just pull out in your Rust projects, or we
+36:21
+even have node packages. Mhmm. Right? You can use OXC resolver, you can you can use OXC transform, OXC parser, and standalone node packages as
+36:30
+well. Nothing prevents you from doing that, right? But and you
+36:35
+would get the same behavior when you’re opting to the whole thing together. Yeah. Right? So it’s like it’s kinda like, a la carte. Like,
+36:45
+you have individual pieces, or you opt in to the whole thing. It’s kinda like the same progressive framework idea that Vue kind of did.
+36:51
+Alexander Lichter: Makes sense. Evan You: Yep. Whereas, if you use Bun, you kind of you’re
+36:57
+opting into the whole box of things. Right? You wanna stay in Bun as much as possible, and that’s what Bun wants you to do.
+37:03
+Of course. Alexander Lichter: Like, it’s in a way also vendor lock and just from the runtime side in the end. Evan You: Yeah. And I think strategically, nothing wrong for
+37:09
+Bun to do that because that’s their whole value proposition. Yeah. Sure. But our, you know, our starting point is just
+37:15
+different. Alexander Lichter: And would you say there might be a way to be like, let’s say compatible with whatever fun, demo, and so on
+37:22
+and so on plan to do? Evan You: I think there are definitely good opportunities for, for example, if a runtime wants to leverage our tool chain
+37:32
+to power their offerings Mhmm. We’re open to that. Yeah. Right? I don’t think that’s gonna happen for fun.
+37:37
+Right? But maybe for other runtimes. Yeah. Alexander Lichter: So the the chances there is probably just like, okay, talk and using it. And, okay, that’s nice. So one
+Projects close to what VoidZero should become?
+37:46
+like, there were a lot of questions, of course, for the community, and one of them is, is there a project that is,
+37:52
+let’s say, that exists right now and is the closest to what you imagine VoidZero would become one day?
+37:59
+Evan You: I would say not. I don’t think there is something that’s very closely equivalent to what we have. The end goal
+38:08
+that we have in mind. Alexander Lichter: Maybe in other languages besides JavaScript? Evan You: Oh, you mean just if if you’re just talking about the
+38:14
+toolchain part Alexander Lichter: I would say in general. Yeah. Evan You: Yeah. Like cargo for Rust. Yeah. Alexander Lichter: So that’s that’s so so is it the cargo for
+38:20
+JavaScript? Yeah. Yeah. Yeah. That’s that’s not too bad. It’s a catchy phrase. And are there any upcoming projects that
+Upcoming projects which will be integral for VoidZero
+38:27
+can be closed source or open source that don’t exist right now or that nobody’s aware of? And that should be or will be
+38:35
+integral for VoidZero? So beyond the projects we have under the VoidZero umbrella right now. Evan You: Yeah. So obviously the long term plans will likely
+38:45
+change, but I think in general if it’s something that we
+38:50
+distribute to users to run on your machine, it will likely be open source and free to use, right? If it’s a paid thing, it
+39:01
+will likely be hosted somewhere as a service. Alexander Lichter: Okay. That that makes sense. So everything
+39:07
+that’s like closed source will probably not land and the end users will change. Evan You: Closed source will, like because obviously in the
+39:14
+early stages of the company, we explored a lot of we discussed and explored all these different options. Right? So, I guess I
+39:22
+don’t want to lock myself into a box right now because the road is long. Alexander Lichter: True. Evan You: But I like, honestly, like, open core, I don’t think
+39:29
+we it’s unlikely that we go with open core. Join the line of arbitrary feature sets is just very difficult, especially for
+39:38
+the kind of thing we do. Right? We don’t want to create artificial barriers for people, of adopting and using the things
+39:45
+we build, and especially if it’s, you know, it’s we’re building something for the ecosystem. Right?
+39:51
+So the ideal situation is the services that we build generate sustainable income for us to keep the toolchain free and open
+39:59
+source forever. Alexander Lichter: Got it. And then you point already, now we come to the topic that was the most asked question, of course,
+The Monetization of VoidZero
+40:06
+monetization. Like, the big thing, under your announcement tweet, under videos, under literally everything, also the
+40:13
+the q and a tweet and post, like, oh, how will VoidZero make money? What’s the the business model and so on and so on. Maybe
+40:20
+to start on that you said in your Narsa blog post it will be focused on enterprise, so like solutions for enterprise.
+40:26
+Yeah. Can you like outline a bit more on that? I mean you said you have to be still a bit vague. Yeah. But I’m more than
+40:32
+sure that people are curious to hear everything around that. Evan You: Yeah. The idea here is when we build a universal
+40:39
+toolchain, and assuming it becomes industry standard, it gives us great funnel, great conversion, for literally any
+40:49
+service that we build. Right? So, unfortunately, I cannot go into the very specific details about what exact service we plan
+40:56
+to build because, in a way, we don’t want to, like, reveal it before it’s actually ready. It ties into a lot of, you know,
+41:05
+the the business side of things, strategies, like Alexander Lichter: Sure. Competition. Yeah. Evan You: Potential competition and everything. Right? But so
+41:12
+first thing we wanna assure people is we do have a plan. The second thing is, if the plan goes well or, like, even if the
+41:21
+plan doesn’t goes well, like, our bottom line is we want to retain the integrity of the open source efforts that we do.
+41:27
+Right? I think a lot of the reason people are curious about the money making part is, like, they worry about the long term
+41:35
+sustainability or, like, whether we will because of the money making incentives, whether it will distort the open source
+41:43
+parts. Right? So one promise we can make is we’ll never try to make money by switching licenses and force you to pay for
+41:51
+something you’re using for free today. That’s just not going to happen, right? Everything we do is going to be value added on top. You opt into
+42:00
+it, if you like it, you use it, you pay for it. Alexander Lichter: I think, like, especially, at least, my
+Monetizing a toolchain
+42:06
+feeling is that a lot of people have trouble on, like, imagining how they will look like with a toolchain because let’s say, in
+42:12
+our example, Laravel Cloud got funding recently, also from Accel, of course, and it’s like, okay, it’s a product, users can
+42:18
+can subscribe, buy, whatsoever. It’s rather clear. So as you said, there will be services, that’s that’s what you can
+42:26
+that’s what you can share. Evan You: Yeah. I think if we make an analogy, right, for Laravel, Laravel is the open source framework, and then
+42:36
+Laravel Cloud is a service that you can potentially pay for, right? And many other Laravel services that you can pay for,
+42:45
+right? Some close examples, I think it’s actually pretty
+42:50
+common, like NX, has NX Cloud. Alexander Lichter: Mhmm. Evan You: Bit has BitCloud. They all have an open source
+42:59
+component that you can use for free and get a certain level of benefits, right? And then it’s enhanced when you combine it
+43:08
+with a cloud service that you use, right? So I think there are plenty of opportunities when you have a full toolchain that
+43:15
+covers all the aspects of your JavaScript development to build something like that. Right? Alexander Lichter: And it probably also something to
+43:20
+explore as well to see, like, okay, what’s what’s possible, what’s interesting as well for the enterprise customers. But
+Are planned services relevant for hobby devs?
+43:25
+would you say, like, let’s say, a hobby developer having, like, a side project would also be up to use these services? Or is it,
+43:32
+like, let’s say pricing tier wise would be more catered towards enterprise? Evan You: I think most of the concerns we do plan to cover and
+43:39
+monetize on probably applies more to enterprise environments or medium sized and up production oriented teams. Like
+43:47
+you have real products, that you have, you know, software engineering quality concerns. Essentially something that you
+43:58
+deploy in production and you’re actually making money with it. Like it’s a serious thing and you want to make sure it’s you
+44:05
+you deliver code more efficiently, better, more securely, you know. Alexander Lichter: So it’s it’s more like that the developer who
+44:12
+has, like, a side project might not even need these services. Evan You: Yeah. You probably don’t need these services, but you can still enjoy the open source things we build.
+44:20
+Alexander Lichter: Totally. Yeah. Nice. So to keep VoidZero sustainable in a way, how do you roughly think about dividing the
+How do you plan to divide the funds?
+44:29
+efforts and also funds? So you mentioned, like, sponsoring other projects. You hired some people from the the Vite the
+44:40
+Evan You: Mhmm. Alexander Lichter: So are there, like, any strategies how to continue doing that or how to, advance that?
+44:47
+Evan You: I think sponsorship is just a natural part of it because we do get value out of the all the people who
+44:52
+contribute to our projects, right? So it’s just natural we need to do that as part of the responsibility of a company
+44:58
+that’s built on top of open source. I think long term we’ll you know we the people who are maintaining these open source
+Vue as first class citizen
+45:07
+projects today will likely keep doing that. Right? We will have
+45:12
+separate product development but you know, because for us, in
+45:18
+order to make people trust our products and use our products in the future, the premise is built on we build good open source
+45:28
+projects first. Yeah. Right? That’s the whole strategy. That’s the whole idea is to make our open source things stuff so good that
+45:36
+everyone wants to use them, and then, you know, that becomes our conversion base for the paid product.
+45:42
+Alexander Lichter: Got it. And, I mean, then as I said, like, sponsoring and, like, further improving open source is also part of it.
+45:47
+Evan You: I think all the incentives just align. Yes. Yeah. Alexander Lichter: Let’s talk a bit about VoidZero and Vue
+45:52
+because you you mentioned Vue also in the FAQ, the mini FAQ of the Announcement blog post. You said that Vue will be a first
+46:01
+class citizen of, like, VoidZero of the projects in there. Could you maybe elaborate a little bit as what that exactly means for
+46:10
+Vue? Evan You: So for Vue, Vue remains independent projects.
+46:15
+Business aspect, in the business sense it has nothing to do with VoidZero. But Vue’s default build toolchain is based on
+46:25
+Vite. So anything that VoidZero does to enhance Vite naturally benefits Vue users as well. Right?
+46:32
+So for me I try tend to view tend to think of Vue as a
+46:37
+framework, as a vertical experience, which means if I’m working on something that even if it’s at a lower level, as
+46:46
+long as it benefits Vue end users, right, that’s also, like, it’s contributing to Vue in a way. Mhmm. Right? So and that’s
+46:55
+part of the reason why I built Vue. Right? I built Vue to make the Vue development experience better,
+47:00
+and I think that actually did. Right? You know? Alexander Lichter: Absolutely. Yes. Sure. Evan You: So I believe what VoidZero is doing will also make
+47:08
+Vue development experience better. Alexander Lichter: Yes. But, it’s not like it will only make Vue experience better or
+47:14
+Evan You: It will it will make everyone’s development experience better. Alexander Lichter: So would you say that it’s like, because you
+47:19
+said, like, you will be a 1st class citizen just means it won’t be a 2nd class citizen? As in, like, it will
+47:26
+Evan You: So for example, if, there are certain things we need to do to ensure the new things we build are compatible with the
+47:32
+Vue plugin, or making sure like when we release a new version we will always ensure Vue works smoothly with everything we’ve
+47:40
+released. And the other aspect of it is there are a lot of AST manipulation and code generation things involved in the Vue
+47:48
+compiler path. Alexander Lichter: Yes. Evan You: Right? Some of those might be suitable for opting into the new tool chain. For example, we can use OXC’s parser
+47:57
+to do some of the parsing that we need to do in the Vue compiler. Alexander Lichter: Mhmm. Evan You: And if we provide more powerful primitives for doing
+48:05
+transforms, we can use that in the Vite Vue plug in.
+48:24
+Alexander Lichter: Experimenting field as well. It’s like, okay, we have our new primitives, we have new functions, let’s try them out. Like, also, you did with with Rolldown already, for
+48:32
+example. Evan You: Yeah. Like, for, we do actually, for example, like, I used VitePress as kind of testing bed for a lot of Vite
+48:39
+features doing the 2.0 rewrite. We’re likely gonna do that for the Rodan Vite as well. In fact, our Vite’s documentation already
+48:49
+can run the VitePress build using Rolldown powered Vite. Alexander Lichter: Nice. That’s that’s a great achievement.
+48:55
+Yeah. Sweet. So now with with another project and it’s not,
+Impact of VoidZero on time for Vue and Vite
+49:00
+let’s say, Oni, Oni is wrong there, but open source, it’s a company, so a business.
+49:07
+How do you think that will maybe affect your, let’s say, attention and time for Vue but also for Vue? Because you have
+49:15
+Rolldown, of course, you have everything everything under the VoidZero umbrella, so to say.
+49:20
+Evan You: So, I think naturally with the team growing, I think there are it’s a role, you know, a transition of role for me.
+49:28
+Like, I think even within Vue, I kind of have transitioned a lot from pretty much handling everything hands on to
+49:38
+encouraging more team members to contribute. Like, in fact, if you look at the latest commits in Vue core, we have
+49:45
+consistently have new active contributors joining. And a lot of times in a in a especially in patch releases, I maybe only do
+49:55
+1 or 2 commits during a patch where the other, like, 8 to 10, a dozen commits from other contributors. Mhmm.
+50:01
+Right? So, in a way, I want to not only do that to for Vue but
+50:08
+also for Vite. In fact, Vite is already mostly team driven. Look
+50:13
+at the commits. I actually don’t write much code for Vite directly anymore. So for me I think part of the reason we’re able to grow Vue
+50:23
+and Vite into successful team projects, I don’t want to like
+50:28
+brag about it myself but I think I have a knack for identifying good contributors and try to, encourage them to grow into
+50:35
+bigger roles. Yeah. Right? And I think I wanna do that more at the company level. Like, we want to identify people who are
+50:42
+passionate about these projects, give them the room to grow, to step into bigger roles.
+50:47
+Because I’m just one person. The best way to scale, what’s in my brain is for me to be able to focus on high level directions,
+50:57
+the big picture, and then finding the right people and put them in the roles that can sort of help me carry out that
+51:04
+vision. Alexander Lichter: Because of delegating that, like, how to Evan You: Yeah. Learning to delegate as a as a company founder. I think that’s critical, and that’s something,
+51:12
+you know, I’m I’m learning and trying to do more. Alexander Lichter: I think also in open source, as you mentioned, it’s it’s the same idea. Right? You can’t do
+51:18
+everything alone. Like, you have to have people try aging docs. And it’s it’s so much and, especially at a certain
+51:24
+popularity level, like, in in Vue and Indeed, it it wouldn’t work. And if if you look at, if you have a look at the Vite team, if
+51:30
+you have a look at the the Vue team, then that that works out pretty well. Yeah. So, yeah, I think at, company level, this is
+51:37
+at least something that is similar. Of course, different because there’s still product, there’s still business at some
+51:42
+point behind it. But it’s, yeah, it’s kinda similar as well. Evan You: I think I want to be able to use my time in the most
+51:50
+valuable way possible. I think, in fact, like I never consider myself the strongest in terms of raw technical skills, like like
+52:00
+implementing a hard algorithm or doing some crazy optimizations. Like, I can do that, but I’m not probably not even the best
+52:09
+engineers do that kind of stuff, you know? I think my, kind of
+52:14
+natural talent is probably in just, like, designing sensible APIs and finding good trade offs and defaults and to give the end
+52:24
+users the best possible developer experience without compromising on the technical vision. Right?
+52:31
+So balancing all that is, I think, the best way to spend my
+52:36
+energy at the moment. So, and then that also means it’s a
+52:43
+similar case for Vue. So I want to be 100% honest because like starting a company definitely will reduce my attention that’s
+52:51
+allocatable to Vue to some extent, right? But doesn’t mean Vue’s gonna be abandoned, right? So given my, you know, as much
+53:00
+attention I can give it to it, I will still make sure Vue evolves in a way that I see that’s beneficial to the users.
+53:07
+Alexander Lichter: Would you say that the amount of attention you can, give to Vue is, like, comparable to, let’s say, when
+53:13
+you worked on Vite before or, like? Evan You: Yeah I would say it’s comparable. In fact I think during the Vite 2.0 phase I pretty much just like left Vue
+53:21
+aside. Alexander Lichter: So you wouldn’t say that would happen again? Evan You: I think right now I try to be more consistent.
+53:28
+Because in a way, I think also, like, I want to be kind of, you
+53:36
+know, open about it. The idea here that an open source project needs like, I think if it’s just bug fixes, right, you do need
+53:44
+constant attention, like small things coming in, you can fix it as they come. But I think, for for a project like Vue, right,
+53:52
+it’s stable, it’s already fulfilling a lot of needs. In a way, we are not really looking to do really disruptive paradigm
+54:01
+shift kind of changes in view. Yeah. At least for the foreseeable future. Right? Our focus is on incrementally improving everything, whether it
+54:10
+be it’s small quality of life improvements, making sure an old
+54:15
+API works better in certain ways, or, addressing some long standing issues, or just like rewriting the internals to make
+54:23
+it faster without you having to do anything. Right? We’re focusing on these kind of things. And in a lot of ways,
+54:30
+because I think Vue’s status as an independent project and not a for profit one, actually affords us to take a pace that’s
+54:39
+different from a for profit thing. Like when you see a
+54:45
+framework that’s being used as a funnel for a for profit project, you naturally see you need to constantly be pushing for new
+54:52
+things, keep it on the radar, and make people excited all the time. In a way, we maybe we have to do that for the new
+54:59
+toolchain, but I think for Vue, we’re not an on on a real pressure to do that, and I think that’s fine. Like, in fact, I
+55:06
+think for a lot of independent open source projects, it’s fine for it to for every single one of them to have different tastes
+55:14
+of their own. You can move as fast as you want, or you can move slow as long as you believe you are doing your users right. Right?
+55:23
+And I think for a framework that’s 10 years old, you don’t necessarily want new big features coming out every month.
+55:31
+Alexander Lichter: No. Evan You: It’s actually tiring. Alexander Lichter: Yeah. Also for the users, right? Like, also, I mean, Vue 2 video free, of course, wasn’t the easiest
+55:37
+and, like, having something that big of a change again would probably also hurt the user base as well, especially if there’s
+55:44
+no need to that. So that that definitely makes sense. Okay. Let’s come to a bunch of questions gathered from the community here and there. So
+Relationship between VoidZero and UnJS
+55:52
+a few people asked what’s the relationship to the UnJS project? Because also unified JavaScript system.
+55:59
+Right. Maybe potential collaboration, even people like, oh, they’re merging. So what’s what’s your take on that?
+56:06
+Evan You: There isn’t really a direct relationship. I think on JS is more at the runtime level. It’s like runtime libraries, for
+56:14
+example, like Nitro is basically. Poyaa’s actually, the new project is like a unified server API, right? So this is
+56:22
+more code that actually runs at run time. So VoidZero concerns more at the the build, transform, and
+56:32
+infrastructure tooling layer. So it’s like language level support rather than just, very specific things you wanna do at runtime.
+56:40
+Right? I think UnJS is more focused on the run time part. I think maybe jiti is a bit kind of related.
+56:48
+Alexander Lichter: Yeah. Evan You: So I think, you know, at one point, jiti probably should use RxC and Rota under the hood. Yeah.
+56:54
+Alexander Lichter: Let’s let’s see what we can do there. Yeah. Evan You: I mean, but other than that I think, UnJS is, like,
+57:00
+sitting at the runtime layer whereas 40 is, like, at the language toolchain. Absolutely. Yeah.
+config proposal
+57:06
+Alexander Lichter: Have you heard of the dot config directory proposal also from Pooya to select, hey, all the configs? Do you think that’s something that also a unified
+57:14
+toolchain could support? Evan You: I mean, of course, if we, end up having a toolchain that covers all these concerns, it will probably just be one
+57:22
+single config file. Alexander Lichter: Yeah. Or, like, even the that, like, a dot config folder to just, like, put, I don’t know, your post CSS
+57:28
+config in there, your, you know, tailwind config and whatnot, so you don’t have to have it all at the top level project root?
+57:34
+Evan You: Yeah. I guess dot config works well as is now. I’m not sure if it needs to be part of the VoidZero scope. Right?
+57:43
+But for VoidZero, everything that we do cover Mhmm. It will probably just be configurable in one single
+57:48
+config file. Alexander Lichter: Do you plan migration paths, ideally smooth migration paths for, for other tools, people use like SWC,
+Migration path from tools like SWC or esbuild
+57:57
+esbuild, and so on and so on? Evan You: Rolldown actually is, specifically in terms of scope,
+58:03
+is very similar to esbuild, so I think in a lot of cases, Rolldown’s API is designed more modeled after rollups, but
+58:12
+feature set wise it’s very close to esbuild. Mhmm. So if you want, you can definitely migrate from esbuild to to Rolldown. In
+58:21
+fact, we do have a client that we’re working with. He’s specifically doing that because they want better chunking
+58:27
+control, which esbuild has kind of a limitation with. Alexander Lichter: Yeah.
+58:33
+Evan You: And for, what’s the, SWC? I think for SWC, if you’re
+58:39
+using it as a transformer the migration should also be quite straightforward because both of both OXC’s transform and SWC’s
+58:46
+transform are, like, loosely modeled after Babel’s. Mhmm. Right? So the options will be similar.
+58:51
+The functionality will be similar. It will just be probably faster. So I don’t also don’t see a big problem there,
+58:59
+and SWC also doesn’t really have a bundler associated with it. I
+59:06
+mean, there’s turbopack and rspack, but they’re not in the scope of SWC, right? So, yeah, I think, if you want to just use
+59:16
+oxc instead of SWC as a parser or transformer, it should also be doable.
+59:21
+In fact, there is a project that’s doing that, which I
+59:26
+cannot really tell you what it is now, but, at a later stage, you will know. Alexander Lichter: Perfect. Great. I’ll definitely retweet
+59:32
+that as soon as you you announce it. Evan You: Okay. Yeah. Alexander Lichter: Let’s see. Okay. Cheeky question. When
+When Next.js will support Vite?
+59:40
+Next. Js will support Vite? Probably never. Evan You: Mostly because, it’s so hard, so deeply integrated
+59:49
+with turbopack, so it’s just too deeply invested in that. I think we actually once did a prototype of running Next.js on Vite, and
+59:58
+we got to the point where we can run the approuter playground with, like, 80% of the features working exactly the same. The
+1:00:06
+same code base, we just aliased it with something else. That’s and it gets it gets running on Vite.
+1:00:11
+But the internal differences are huge. At one point, I think it’s just not really worth it on our side to pursue it further. And
+1:00:21
+we, we did talk to Vercel about it, but they don’t really seem
+1:00:26
+that enthusiastic about it. Alexander Lichter: It’s their own tool in the pipeline. Yeah. Evan You: It’s understandable because, like, the they’ve
+1:00:33
+invested so much into Turbopack. Yeah. Right? I think for them really it’s, like, they just want to get it to Turbopack to
+1:00:40
+work nicely through next. Alexander Lichter: Fair. But do you think that could, well, be a downside that, like, Next.js is the only bigger framework that’s
+1:00:47
+not and then also on the unified toolchain? Evan You: I mean, for Next.js probably is going to be a
+1:00:52
+downside in the long run. Like, I think for the the competitive
+1:00:58
+advantage of other frameworks being built on top of it is they keep getting the benefits of everything we’ve built under
+1:01:05
+hood for free. Alexander Lichter: For free Evan You: Yeah. Pretty much. Yeah. But I mean Vercel has a
+1:01:11
+lot of money, so they invest into their own things. Fair. Which they have more control over.
+1:01:16
+Alexander Lichter: Yeah, that’s a benefit for them, right? Yeah. Yeah. Evan You: Because a lot of the Next.js internal logic is now
+1:01:21
+like, a lot of the Next. Js specific transformers are coupled with SWC. So they were able to do that because they,
+1:01:29
+you know, control all the way down to SWC. And and I think for
+1:01:35
+them at that time it was, you know, it was the only option because, you know, Vite really didn’t have this kind of native
+1:01:42
+toolchain back then. Alexander Lichter: Fair. oxc-lint, will oxc-lint support
+oxc-lint and stylistic rules
+1:01:48
+statistic rules? After we heard, like, oh, ESLint shouldn’t be used for stylistic rules, Anthony Fu has now adopted all
+1:01:54
+the stylistic rules there. What’s your take on that? Evan You: I think the current focus scope of oxc-lint is
+1:02:02
+pretty much artificial. It’s mostly because, the scope we want to control the scope because the linker is not our
+1:02:09
+primary focus right now. Mhmm. But, you know, at a later stage, eventually, we want the tool change to be as complete as
+1:02:16
+possible. So if stylistic rules I think it kinda depends on
+1:02:21
+demand. Like, if we as more people start using oxc-lint and a lot of users are asking for stylistic rules, then, of course, that can
+1:02:30
+be put on the road map. But I think the bigger problem we wanna tackle is, performant type-aware linting, which is
+1:02:40
+something we have discussed with the TypeScript team. And, again,
+1:02:45
+there are things I cannot talk about just yet. Yeah. But I think there will be interesting development in the future.
+1:02:51
+I’m looking forward to that. Yeah. Alexander Lichter: So you also collaborated with the TypeScript team with Microsoft in that way?
+Collaboration with the TypeScript team?
+1:02:57
+Evan You: I wouldn’t say it’s collaboration, but we are in a very close, you know, our The exchange. Yeah. We talk about
+1:03:05
+the plans, making sure we don’t, you know, collide or making sure it’s compatible, making sure, like, we’re not doing duplicated
+1:03:13
+work. Alexander Lichter: Yeah. Evan You: Yeah. Alexander Lichter: Also when it comes to TypeScript checking itself, you always said it’s more of an out of band, thing to
+TypeScript Checking in VoidZero?
+1:03:18
+do and that probably won’t change for a while. Evan You: That won’t change because because making
+1:03:26
+TypeScript check type checking faster is a task that can only be achieved by the TypeScript team themselves.
+1:03:32
+Alexander Lichter: So they should rewrite it to Rust, I see. No. Who knows, but, this could be interesting. So in
+1:03:40
+terms of formatting, people of course have very strong opinions what to use. Prettier is very popular. Will you just comply
+Will the formatter support Prettier?
+1:03:47
+with the Prettier rules? Will you give some more customization, so like whatever that’s up to the end user?
+1:03:52
+Evan You: I think the first version will likely just be a 1 to 1 Prettier compatible. Yeah. Because, the the thing is
+1:04:00
+formatting is naturally a bikeshedding topic. Right? Like we don’t really want to spend our energy on bikeshedding for
+1:04:07
+the users. Alexander Lichter: They’re more interesting. Evan You: Prettier has already done that. Let’s just let’s just do that. Alexander Lichter: That’s true. Remember what they did. Yes.
+1:04:14
+Okay then, 2 more. One, that was quite interesting. So I saw there was a pull request, number #18278 in Vite,
+License Change to Vite
+1:04:25
+from you that changed the license. Uh-huh. But to be fair, not like the license type, it’s still MIT but they changed from
+1:04:32
+your name to VoidZero inc. Could you briefly, explain why it happened?
+1:04:38
+Evan You: So I basically assigned the copyright that I previously owned, in Vite, to VoidZero, the company. And, like
+1:04:46
+That’s it. Alexander Lichter: Why that? Evan You: Well so that the company is now more, has better
+1:04:53
+reasons to sponsor Vite’s development. Because otherwise it’s my project technically, and it would be more like the
+1:05:02
+company sponsoring a project that’s actually controlled by me, where although I control the company, right?
+1:05:08
+Legality wise, it’s a bit of a gray area. Alexander Lichter: So it’s more of a legal point of view. Evan You: Yeah. So assigning into the into assigning the
+1:05:16
+copyright, so basically the majority copyright of Vite to the company, which means it’s reasonable for the company to
+1:05:21
+spend money on its further development? Alexander Lichter: Yep. That makes sense. And then, the last one is when can we see a first version of Vite and rolldown?
+When can we test Rolldown + Vite?
+1:05:31
+Evan You: Well, there is in fact already a continuous release that’s available through pkg.pr.new. We do we currently
+1:05:40
+have a fork in rolldown/vite repository. If you’re interested you can check it out. It can already run most of the starter
+1:05:49
+kits for, from the create Vite templates. There are still rough edge some rough edges, like consistent
+1:05:56
+issues and, resolver. So it actually already works to a
+1:06:03
+certain extent, but there are some parts that we want to make more efficient, essentially. And some of that is kind of blocked
+1:06:11
+by Rolldown, some of that just like Rust and JS drops. So some
+1:06:16
+rough edges we need to iron out. I think we are trying to get
+1:06:22
+some of the simple React SPAs in production to try to use it.
+1:06:28
+But my hope is end of this year or early next year we will have
+1:06:34
+something more like, alpha or beta version that you can actually test in your project. Alexander Lichter: Sweet. Then very last question about hiring.
+Hiring at VoidZero
+1:06:42
+So On your website, on VoidZero, it said, like, you’re hiring not for an like, not for an active position but whoever is, let’s
+1:06:49
+say, interested in low level, ideally experience with Rust, but also the vision of the big unified ctoolhain can apply.
+1:06:55
+Evan You: In fact what we said is we’re not hiring. Alexander Lichter: Yes. No. You’re not hiring for any position. Right? No. But you could still send something over if you think that
+1:07:03
+fits. Evan You: So essentially, we’re looking for people who are just amazing and would feel like, wow, you would be immediately
+1:07:10
+going to make an impact in the things we’re trying to build. Right? So that typically means you probably are already a
+1:07:17
+pretty prolific contributor in open source. You’ve worked on, you know, things. In fact, as you can tell, all of our hiring
+1:07:27
+so far are made through open source channels. Alexander Lichter: Yes. Evan You: So that’s an important part of it. But then there are
+1:07:32
+also people who may have worked in not open source projects, but have done really relevant work.
+1:07:38
+Alexander Lichter: Let’s say rspack, for example, which is open source Evan You: It’s open source. But then there are, you know, people
+1:07:44
+who’ve worked on compilers, language toolchains Alexander Lichter: Oh, just outside of JavaScript as well?
+1:07:50
+Evan You: Yeah. Yeah. Again, there are no very you know, I can’t really give you a really clear criteria of what you need
+1:07:56
+to do in order for us to be interested. Yes. But, we do get,
+1:08:02
+we’ve got more than, like, 20 emails, and there are a few interesting people.
+1:08:07
+Alexander Lichter: Okay. That’s nice to hear. Evan You: Yeah. But, again, like, the purpose of that is we want to start talking with these interesting people and keep the
+1:08:14
+channel open, and at a later stage when the company grows further and we open up more headcount, you know, we’d be
+1:08:21
+ready to get them on board. Alexander Lichter: But probably also same for, like, part of the Vitest team, more people from the Vite, team, and so on and so
+1:08:27
+on. So there’s also a plan probably to hire some more people from from them. Evan You: Yeah. Or we increase the sponsorship as the company
+Wrapping up
+1:08:33
+scales. Alexander Lichter: Makes sense. Evan, thank you so much for the interview. I hope, for you out there all questions are
+1:08:38
+answered. Otherwise, just let us know. And, yeah. Thank you so much. Evan You: Thank you.
