@@ -1,25 +1,35 @@
 
 Alexander Lichter:
-Hey, everybody. Welcome back to a new video on this channel. And today, we’re not in the usual place. No. We are in Japan, and, let’s talk with Evan You about VoidZero.
-Alright, we’re here at, VueFes 2024, at least very close by. And, well, with me here is the creator of Vue and Vite and the founder of VoidZero Evan You. How are you doing, Evan?
+Hey, everybody. Welcome back to our new video on this channel.
+And today, we’re not in the usual place. No. We are in Japan, and, let’s talk with Evan You about VoidZero.
+Alright, we’re here at, VueFes 2024, at least very close by.
+And, well, with me here is the creator of Vue and Vite and the founder of VoidZero Evan You.
+How are you doing, Evan?
 
 Evan You:
 Good. Yeah.
 
 Alexander Lichter:
-So, yeah, we’re here to discuss, everything about your new company, the new project. It’s been, quite a few weeks since you dropped the ball announcing the funding of a company.
+So, yeah, we’re here to discuss, everything about your new company, the new project.
+It’s been, quite a few weeks since you dropped the ball announcing the funding of a company.
 
 Evan You:
 Yep.
 
 Alexander Lichter:
-maybe it’d be good for everyone maybe not reading the announcement blog post or the the keynotes, at ViteConf. The link is, of course, in the description for everybody out there who should, definitely do that. To summarize maybe in, like, 2 or 3 sentences what VoidZero is about.
+maybe it’d be good for everyone maybe not reading the announcement blog post or the the keynotes, at ViteConf.
+The link is, of course, in the description for everybody out there who should, definitely do that.
+To summarize maybe in, like, 2 or 3 sentences what VoidZero is about.
 
 Evan You:
-Sure. So VoidZero is built on top of a few existing open source projects, namely Vite, Vitest, OXC, and Rolldown. And we our aim is to unify the vision of these projects and build a unified coherent toolchain for JavaScript and potentially, you know, associated services around that toolchain. Yeah.
+Sure. So VoidZero is built on top of a few existing open source projects, namely Vite, Vitest, OXC, and Rolldown.
+And we our aim is to unify the vision of these projects and build a unified coherent toolchain for JavaScript and potentially, you know, associated services around that toolchain. Yeah.
 
 Alexander Lichter:
-Well, we’ll get to the services definitely later on. So maybe let’s start in the past very much. When did you have the idea for VoidZero? you think, like, you had the the first idea, the first vision of what VoidZero is now and will become? Like, when any day from the big picture, let’s say?
+Well, we’ll get to the services definitely later on.
+So maybe let’s start in the past very much.
+When did you have the idea for VoidZero? you think, like, you had the the first idea, the first vision of what VoidZero is now and will become?
+Like, when any day from the big picture, let’s say?
 
 Evan You:
 I would say when the when the moment we realize when I realize Vite is gaining so much traction that it’s essentially become becoming a shared infrastructure layer between a lot of these different web frameworks and tools, I think this level of convergence is something that that’s very rarely seen in the JavaScript ecosystem because, if there is one thing that we can summarize the JavaScript ecosystem is that it’s so, you know in an active way, it’s fragmented. In a good way, it’s diverse. True. Right? I think it’s a it’s a double edged sword in many ways. Mostly because JavaScript evolved from a very crude, simple scripting language to the most used language today. So people are essentially pushing it to its limits, using it to build things that it just wasn’t designed for in the first place. Right? So, over that period, we need all these tools to support these expanding use cases. So people come up with these solutions 1 by 1, right, by different people at different time. You know? So inevitably there are just all these incompatibilities or inconsistencies or overlapping responsibilities between all these tools. I think the nice thing about this is we essentially, you know, collectively created all the things we actually need. Right? So we do have solutions to almost every engineering problem in JavaScript today. And the downside is we have to essentially, in every project, like, pull in hundreds of dependencies and try to configure them, make sure they work together, and make sure, like, you know, we actually get what we want. Right? So, I think at a so in a way, that has been the the case for, for example, the build tool. Right? In Vue CLI, we had a very long time we had to just, like we basically did the job of putting together all these things for our for Vue users and try to give them a more streamlined experience at the end. And at one point, I was thinking there must be a simpler way to do this because I still found Vue CLI was a bit too over engineered, too complicated.
